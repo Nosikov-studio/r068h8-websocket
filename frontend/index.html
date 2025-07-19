@@ -9,7 +9,16 @@
     <h1> Crypte Prices Example</h1>
     <div id ="price"> Loading </div>
     <script>
-        
+         const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+
+      if (message.type === 'btc_price') {
+        document.getElementById('price').innerHTML = `${message.data.price} USD @ ${message.data.timestamp}`;
+      }
+
+    }
     </script>
 </body>
 </html>
